@@ -1,134 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>اضغط للبدء 🐳</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-      background: linear-gradient(to top, #005f99, #66ccff);
-      font-family: sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>عيد ميلاد ميمي 🎉</title>
 
-    .ocean {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
+<style>
+/* ==== إعدادات عامة ==== */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:tahoma, sans-serif;
+  overflow:hidden;
+  height:100vh;
+  transition:background 1s ease;
+}
+body.scene-ocean{
+  background:linear-gradient(to top,#005f99,#66ccff);
+}
+body.scene-birthday{
+  background:linear-gradient(to bottom right,#ffb6c1,#ffe4e1);
+}
 
-    .orca {
-      width: 150px;
-      position: absolute;
-      bottom: -200px;
-      left: -150px;
-      margin-top: 20px;
-      animation: arcJump 3s ease-out forwards;
-      cursor: pointer;
-      z-index: 2;
-      transition: transform 1s, opacity 1s;
-    }
+/* ==== مشهد المحيط ==== */
+.ocean-scene{position:relative;width:100%;height:100%}
 
-    .click-text {
-      position: absolute;
-      top: -40px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: white;
-      font-size: 1.5em;
-      text-shadow: 0 0 10px #000;
-      animation: float 2s infinite ease-in-out;
-      pointer-events: none;
-    }
+.orca{
+  width:150px;
+  position:absolute;
+  bottom:-200px;left:-150px;
+  cursor:pointer;z-index:3;
+  animation:arcJump 3s ease-out forwards;
+}
 
-    @keyframes arcJump {
-      0% {
-        bottom: -200px;
-        left: -150px;
-        transform: rotate(0deg);
-      }
-      50% {
-        bottom: 300px;
-        left: 50%;
-        transform: translateX(-50%) rotate(-15deg);
-      }
-      100% {
-        bottom: 150px;
-        left: 50%;
-        transform: translateX(-50%) rotate(0deg);
-      }
-    }
+.click-text{
+  position:absolute;top:-40px;left:50%;transform:translateX(-50%);
+  font-size:1.5em;color:#fff;text-shadow:0 0 10px #000;
+  animation:float 2s infinite ease-in-out;
+  pointer-events:none;
+}
 
-    @keyframes float {
-      0%, 100% { top: -40px; }
-      50% { top: -50px; }
-    }
+.waves{
+  position:absolute;bottom:0;width:100%;height:150px;z-index:2;
+  background:url('images/may.png') repeat-x;
+  animation:wave 10s linear infinite;
+}
 
-    @keyframes dive {
-      to {
-        bottom: -300px;
-        opacity: 0;
-      }
-    }
+@keyframes arcJump{
+  0%{bottom:-200px;left:-150px;transform:rotate(0)}
+  50%{bottom:300px;left:50%;transform:translateX(-50%) rotate(-15deg)}
+  100%{bottom:150px;left:50%;transform:translateX(-50%) rotate(0)}
+}
+@keyframes float{0%,100%{top:-40px}50%{top:-50px}}
+@keyframes dive{to{bottom:-300px;opacity:0}}
+@keyframes wave{from{background-position-x:0}to{background-position-x:1000px}}
 
-    .waves {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 150px;
-      background: url('images/may.png') repeat-x;
-      animation: wave 10s linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes wave {
-      from { background-position-x: 0; }
-      to { background-position-x: 1000px; }
-    }
-  </style>
+/* ==== مشهد الحفل ==== */
+.birthday-section{display:none;position:relative;width:100%;height:100%;overflow-x:hidden}
+h1{
+  white-space:nowrap;font-size:clamp(1.5rem,5vw,3.5rem);
+  text-align:center;color:#d63384;margin:40px 20px 20px;
+}
+.gallery{
+  display:grid;gap:12px;padding:20px;margin:0 auto;width:min(90%,800px);
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+}
+.gallery img{
+  width:100%;border-radius:15px;box-shadow:0 0 10px #aaa;object-fit:cover;
+}
+@media(min-width:768px){.gallery{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
+.balloon{
+  position:absolute;bottom:-100px;width:40px;height:60px;border-radius:30px;
+  opacity:.8;animation:floatBalloon 10s linear infinite;
+}
+@keyframes floatBalloon{
+  0%{transform:translateY(100vh) translateX(0)}
+  100%{transform:translateY(-110vh) translateX(30px)}
+}
+</style>
 </head>
-<body>
-  <div class="ocean">
-    <img src="images/ocen.png" class="orca" id="orca" />
-    <div class="waves"></div>
+
+<body class="scene-ocean">
+<!-- ========= مشهد 1 ========= -->
+<div class="ocean-scene" id="oceanScene">
+  <img src="images/ocen.png" class="orca" id="orca">
+  <div class="click-text" id="clickText">Click Me</div>
+  <div class="waves" id="waves"></div>
+</div>
+
+<!-- ========= مشهد 2 ========= -->
+<div class="birthday-section" id="birthdaySec">
+  <h1>🎂 !! Happy Birthday Mimi !! 🎂</h1>
+  <div class="gallery">
+    <img src="images/mimi1.jpg" alt="ميمي 1">
+    <img src="images/mimi2.jpg" alt="ميمي 2">
+    <img src="images/mimi3.jpg" alt="ميمي 3">
+    <img src="images/mimi4.jpg" alt="ميمي 4">
   </div>
+</div>
 
-  <!-- مشغل الصوت -->
-  <audio id="birthday-audio">
-    <source src="happybirthday.mp3" type="audio/mpeg">
-  </audio>
+<!-- ===== الصوت ===== -->
+<audio id="birthday-audio" loop>
+  <source src="happybirthday.mp3" type="audio/mpeg">
+</audio>
 
-  <script>
-    const orca = document.getElementById('orca');
-    const audio = document.getElementById('birthday-audio');
+<script>
+const orca   = document.getElementById('orca');
+const audio  = document.getElementById('birthday-audio');
+const clickT = document.getElementById('clickText');
+const ocean  = document.getElementById('oceanScene');
+const waves  = document.getElementById('waves');
+const party  = document.getElementById('birthdaySec');
 
-    // إضافة نص "Click Me" فوق الحوت
-    const text = document.createElement("div");
-    text.className = "click-text";
-    text.innerText = "Click Me";
-    orca.appendChild(text);
+/* إنشاء بالونات عند بدء الحفل */
+function createBalloons(){
+  for(let i=0;i<20;i++){
+    const b=document.createElement('div');
+    b.className='balloon';
+    b.style.left=Math.random()*window.innerWidth+'px';
+    b.style.backgroundColor=`hsl(${Math.random()*360},70%,80%)`;
+    b.style.animationDuration=(8+Math.random()*5)+'s';
+    document.body.appendChild(b);
+  }
+}
 
-    orca.addEventListener('click', () => {
-      // إخفاء النص
-      text.style.display = "none";
+/* حدث الضغط على الحوت */
+orca.addEventListener('click',()=>{
+  clickT.style.display='none';
+  /* تشغيل الصوت لحظة التفاعل (يدعم iPhone) */
+  if(audio.paused){audio.play().catch(e=>console.log('صوت:',e))}
+  /* حركة الغوص */
+  orca.style.animation='dive 1s forwards';
 
-      // تشغيل الصوت في لحظة التفاعل المباشر (يدعم iOS)
-      if (audio && audio.paused) {
-        audio.play().catch(err => {
-          console.log("فشل تشغيل الصوت:", err);
-        });
-      }
-
-      // بدء الغوص
-      orca.style.animation = "dive 1s forwards";
-
-      // بعد 1 ثانية انتقل للصفحة الثانية
-      setTimeout(() => {
-        window.location.href = "main.html";
-      }, 1000);
-    });
-  </script>
+  /* بعد انتهاء الغوص – أبدل المشهد */
+  setTimeout(()=>{
+    ocean.style.display='none';           // إخفاء المحيط
+    party.style.display='block';          // إظهار الحفل
+    document.body.classList.replace('scene-ocean','scene-birthday');
+    createBalloons();                     // بالونات
+  },1000);
+});
+</script>
 </body>
 </html>
