@@ -138,5 +138,12 @@
   window.addEventListener('touchstart', tryPlayAudioOnce);
   window.addEventListener('scroll', tryPlayAudioOnce);
   window.addEventListener('mousemove', tryPlayAudioOnce);
+
+  document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    tryPlayAudioOnce();
+  }
+});
+
 </script>
 </html>
