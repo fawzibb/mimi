@@ -116,4 +116,27 @@
   </div>
 
 </body>
+
+<script>
+  function tryPlayAudioOnce() {
+    const audio = document.getElementById('birthday-audio');
+    if (audio && audio.paused) {
+      audio.play().catch(err => {
+        console.log("لم يتم تشغيل الصوت تلقائيًا:", err);
+      });
+    }
+
+    // إزالة جميع الأحداث بعد أول تشغيل
+    window.removeEventListener('click', tryPlayAudioOnce);
+    window.removeEventListener('touchstart', tryPlayAudioOnce);
+    window.removeEventListener('scroll', tryPlayAudioOnce);
+    window.removeEventListener('mousemove', tryPlayAudioOnce);
+  }
+
+  // تشغيل الصوت عند أول تفاعل فقط
+  window.addEventListener('click', tryPlayAudioOnce);
+  window.addEventListener('touchstart', tryPlayAudioOnce);
+  window.addEventListener('scroll', tryPlayAudioOnce);
+  window.addEventListener('mousemove', tryPlayAudioOnce);
+</script>
 </html>
