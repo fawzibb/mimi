@@ -95,10 +95,16 @@
     <div class="waves"></div>
   </div>
 
+  <!-- مشغل الصوت -->
+  <audio id="birthday-audio">
+    <source src="happybirthday.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     const orca = document.getElementById('orca');
+    const audio = document.getElementById('birthday-audio');
 
-    // النص العائم فوق الحوت
+    // إضافة نص "Click Me" فوق الحوت
     const text = document.createElement("div");
     text.className = "click-text";
     text.innerText = "Click Me";
@@ -108,10 +114,17 @@
       // إخفاء النص
       text.style.display = "none";
 
-      // تشغيل حركة الغوص
+      // تشغيل الصوت في لحظة التفاعل المباشر (يدعم iOS)
+      if (audio && audio.paused) {
+        audio.play().catch(err => {
+          console.log("فشل تشغيل الصوت:", err);
+        });
+      }
+
+      // بدء الغوص
       orca.style.animation = "dive 1s forwards";
 
-      // بعد نهاية الغوص → افتح الصفحة
+      // بعد 1 ثانية انتقل للصفحة الثانية
       setTimeout(() => {
         window.location.href = "main.html";
       }, 1000);

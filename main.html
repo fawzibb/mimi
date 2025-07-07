@@ -139,11 +139,13 @@
   window.addEventListener('scroll', tryPlayAudioOnce);
   window.addEventListener('mousemove', tryPlayAudioOnce);
 
-  document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
-    tryPlayAudioOnce();
-  }
-});
+  window.addEventListener("load", () => {
+    const audio = document.getElementById("birthday-audio");
+    if (audio && !audio.paused) {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  });
 
 </script>
 </html>
